@@ -3,12 +3,19 @@ import express from "express";
 const app = express();
 app.use(express.json());
 
+
+import cors from "cors";
+app.use(cors({
+  credentials: true,
+  origin: true
+}));
+
 import session from "express-session";
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: false },
   })
 );
