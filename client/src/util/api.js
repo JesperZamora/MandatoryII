@@ -3,7 +3,7 @@ export async function fetchGet(url) {
   try {
     const response = await fetch(url, { credentials: "include" });
     const result = await response.json();
-    data = result;
+    data = result.data;
 
   } catch (error) {
     console.error(error);
@@ -26,7 +26,7 @@ export async function fetchPost(url, body) {
     // }
 
     const result = await response.json();
-    data = result;
+    data = result.data;
     
     console.log({
       result,

@@ -16,7 +16,6 @@
     const loginUser = { username, password }
     const data = await fetchPost($BASE_URL + "/api/login", loginUser);
 
- 
     if (data.isMatch) {
       user.set({ username });
       const from = ($location.state && $location.state.from) || "/";
