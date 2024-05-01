@@ -20,11 +20,19 @@ app.use(
   })
 );
 
+import createUserTable from "./database/setupDatabase.js";
+try{
+  const result = await createUserTable();
+  if(result) console.log(`Database connected and ${result}`);
+} catch(err) {
+  console.log(err);
+}
+
 import userAuth from "./routers/userAuth.js";
 app.use(userAuth);
 
-import dashboard from "./routers/testRouters/dashboard.js";
-app.use(dashboard);
+import userDashboard from "./routers/userDashboard.js";
+app.use(userDashboard);
 
 app.all("*", (req, res) => {
   res.status(404).send({ message: "Not Found" });

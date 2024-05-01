@@ -1,17 +1,22 @@
 import { isMatch } from "../utils/authHelpers.js";
-import { database } from "../database/database.js";
+import { getUserByName } from "../database/UserRepository.js";
 
-export function authenticateUser(req, res, next) {
+export async function authenticateUser(req, res, next) {
   const { username, password } = req?.body;
 
-  const user = database.find((user) => user.username === username);
+  const user = await getUserByName(username);
+
   if (!user) {
-    return res.status(401).send({ message: "Incorrect username or password" });
+    return res.status(401).send({ 
+      data: { message: "Incorrect username or password." } 
+    });
   }
 
   const isValid = isMatch(password, user.password);
   if (!isValid) {
-    return res.status(401).send({ message: "Incorrect username or password" });
+    return res.status(401).send({
+      data: { message: "Incorrect username or password." }
+    });
   }
   
   req.user = username;
@@ -20,7 +25,9 @@ export function authenticateUser(req, res, next) {
 
 export function authenticateSession(req, res, next) {
   if(!req.session.user){
-    res.status(401).send({ message: "Unauthorized: No session found" });
+    return res.status(401).send({ 
+      data: {message: "Unauthorized: No session found."}
+    });
   }
   next();
 }
