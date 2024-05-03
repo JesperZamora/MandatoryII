@@ -33,8 +33,6 @@
     try {
       const user = { username, email, password }
       const data = await fetchPost($BASE_URL + "/api/signup", user);
-
-      // console.log("regis*ter", data.data.created);
       
       if (data.created) {
         navigate("/profile");

@@ -16,7 +16,6 @@
     <Link to='/about'>About </Link>
     <Link to='/profile'>Profile</Link>
     <Link to='/register'>Register</Link>
-    
   </nav>
   <div>
     <Route path="/"><Home/></Route>
