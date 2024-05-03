@@ -7,26 +7,26 @@ export async function authenticateUser(req, res, next) {
   const user = await getUserByName(username);
 
   if (!user) {
-    return res.status(401).send({ 
-      data: { message: "Incorrect username or password." } 
+    return res.status(401).send({
+      data: { message: "Incorrect username or password." },
     });
   }
 
   const isValid = isMatch(password, user.password);
   if (!isValid) {
     return res.status(401).send({
-      data: { message: "Incorrect username or password." }
+      data: { message: "Incorrect username or password." },
     });
   }
-  
+
   req.user = username;
   next();
 }
 
 export function authenticateSession(req, res, next) {
-  if(!req.session.user){
-    return res.status(401).send({ 
-      data: {message: "Unauthorized: No session found."}
+  if (!req.session.user) {
+    return res.status(401).send({
+      data: { message: "Unauthorized: No session found." },
     });
   }
   next();

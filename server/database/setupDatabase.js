@@ -1,7 +1,6 @@
 import connection from "./connection.js";
 import { hashPassword } from "../utils/authHelpers.js";
 
-
 async function createUserTable() {
   try {
     await connection.query(`DROP TABLE IF EXISTS users;`);
@@ -15,9 +14,21 @@ async function createUserTable() {
 
     const sql = `INSERT INTO users (username, email, password) VALUES(?,?,?);`;
 
-    await connection.execute(sql, ["jamora", "jw@gmail.com", hashPassword("abc123")]);
-    await connection.execute(sql, ["johnnybravo", "jw@yahoo.com", hashPassword("cocacola123")]);
-    await connection.execute(sql, ["janedoe", "jd@yicloud.com", hashPassword("thisismypassword")]);
+    await connection.execute(sql, [
+      "jamora",
+      "jw@gmail.com",
+      hashPassword("abc123"),
+    ]);
+    await connection.execute(sql, [
+      "johnnybravo",
+      "jw@yahoo.com",
+      hashPassword("cocacola123"),
+    ]);
+    await connection.execute(sql, [
+      "janedoe",
+      "jd@yicloud.com",
+      hashPassword("thisismypassword"),
+    ]);
 
     return "User table created";
   } catch (err) {
